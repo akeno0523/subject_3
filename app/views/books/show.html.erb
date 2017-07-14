@@ -1,0 +1,55 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @book.title %>
+</p>
+
+<p>
+  <strong>Price:</strong>
+  <%= @book.price %>
+</p>
+
+<p>
+  <strong>Summary:</strong>
+  <%= @book.summary %>
+</p>
+
+<p>
+  <strong>Evaluate:</strong>
+  <%= @book.evaluate %>
+</p>
+
+<!-- コメント送信用フォーム -->
+        <p>Send Comment</p>
+        <%= form_for(@comments) do |f|%>
+
+          <div class="field">
+            <%= f.label :nickname %>
+            <%= f.text_field :nickname %>
+            <%= f.label :content %>
+            <%= f.text_field :content %>
+          </div>
+
+       <!-- hidden_fieldで親のIDを秘匿しながら取得する -->
+           <%= f.hidden_field :book_id, :value =>  @book.id %>
+
+          <div class="actions">
+            <%= f.submit %>
+          </div>
+        <% end %>
+
+
+         <!-- 投稿されたコメントを表示 -->
+        <p>Comment</p>
+
+        <% @book.comments.each do |comment| %>
+          <%= comment.nickname %>        
+          <%= comment.content %>
+        <br>
+        <% end %>
+        <br>
+        <br>
+
+<%= link_to 'Edit', edit_book_path(@book) %> |
+<%= link_to 'Back', books_path %>
